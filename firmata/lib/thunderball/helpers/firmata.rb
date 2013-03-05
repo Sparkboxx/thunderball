@@ -13,7 +13,7 @@ module Thunderball
     def initialize(opts={})
       opts = defaults.merge(opts)
       opts.each_pair do |key, value|
-        write_attribute(key, value)
+        instance_variable_set(:"@#{key}", value)
       end
     end
 

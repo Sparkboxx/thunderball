@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require 'arduino_firmata'
 require 'forwardable'
 
