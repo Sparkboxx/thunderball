@@ -1,4 +1,5 @@
 require 'arduino_firmata'
+require 'forwardable'
 
 if !$:.include?(File.expand_path('../', __FILE__))
   $:.unshift(File.expand_path('../', __FILE__))
