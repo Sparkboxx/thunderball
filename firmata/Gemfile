@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-gem "firmata"
+gem "arduino_firmata"
 
