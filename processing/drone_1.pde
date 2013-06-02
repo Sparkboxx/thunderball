@@ -1,8 +1,7 @@
-// float D_YAW = 0.1;
 float lprop = 60.;
 float dprop = 6;
-float leg_len=100.;
-float leg_wid=7;
+float arm_len=100.;
+float arm_wid=7;
 int boxsize = 60;
 float[] theta = {0.1, 0.3, 0.5, 1.2};
 float body_x = 200;
@@ -34,12 +33,7 @@ void draw()
 {
   background(#DDDDDD);
   stroke(0);
-  line(axes_Ox, height*0.9, width*0.95, height*0.9);
-  line(axes_Ox, height*0.9, axes_Ox, height*0.65);
-  line(axes_Ox, height*0.6, width*0.95, height*0.6);
-  line(axes_Ox, height*0.6, axes_Ox, height*0.35);
-  line(axes_Ox, height*0.3, width*0.95, height*0.3);
-  line(axes_Ox, height*0.3, axes_Ox, height*0.05);
+  draw_axes();
   float yaw = 0.;
   float pitch = 0.;
   float roll = 0.;
@@ -48,7 +42,6 @@ void draw()
   int data_frame = frameCount % ndata;
     
   if (mousePressed) {
-   //yaw == 0.0 ? {yaw = mouseX; mx = } : yaw += D_YAW
    angle_x = -2*PI*(mouseY - body_y)/height;
    angle_y = 2*PI*(mouseX - body_x)/width;
   } 
@@ -88,7 +81,7 @@ void draw()
 
 void drawDrone(float yaw, float pitch, float roll)
 {
-  int prop;
+  int i;
   float prop_center_x, prop_center_y;
   
   pushMatrix();
@@ -104,29 +97,54 @@ void drawDrone(float yaw, float pitch, float roll)
   translate(0,0,boxsize/10);
   fill(#333366);
   box(boxsize/2., boxsize/2., boxsize/5.);
-//  rect(0, 0, boxsize, boxsize);
-//  rect(0, 0, boxsize/2, boxsize/2);
 
-  for (prop=0; prop<4; prop++){
-    fill(100+30*prop,0,0);
-    // rect( (leg_len + boxsize)/2*cos(prop*PI/2), (leg_len + boxsize)/2*sin(prop*PI/2), leg_len*cos(prop*PI/2) + leg_wid*sin(prop*PI/2), leg_len*sin(prop*PI/2) + leg_wid*cos(prop*PI/2));
+  for (i=0; i<4; i++){
+    fill(100+30*i,0,0);
     pushMatrix();
-    translate( (leg_len + boxsize)/2*cos(prop*PI/2), (leg_len + boxsize)/2*sin(prop*PI/2));
-    box(leg_len*cos(prop*PI/2) + leg_wid*sin(prop*PI/2), leg_len*sin(prop*PI/2) + leg_wid*cos(prop*PI/2), leg_wid);
+    //translate( (arm_len + boxsize)/2*cos(prop*PI/2), (arm_len + boxsize)/2*sin(prop*PI/2));
+    //box(arm_len*cos(prop*PI/2) + arm_wid*sin(prop*PI/2), arm_len*sin(prop*PI/2) + arm_wid*cos(prop*PI/2), arm_wid);
+    draw_arm(i);
     popMatrix();
-    prop_center_x = (leg_len + boxsize/2)*cos(prop*PI/2);
-    prop_center_y = (leg_len + boxsize/2)*sin(prop*PI/2);
-    draw_propeller(prop_center_x, prop_center_y, pow(-1,prop)*theta[prop]);
+    draw_propeller(i, pow(-1,i)*theta[i]);
   }
   popMatrix();
 }
 
-void draw_propeller(float prop_center_x, float prop_center_y, float theta){
+/* Given a value of "arm" in {0,1,2,3}, draw_arm() draws 
+ * the armth arm of the drone.
+ */
+void draw_arm(int arm){
+  float arm_center_x, arm_center_y, arm_center_z;
+  arm_center_x = cos(arm*PI/2.) * (boxsize + arm_len)/2.;  // TODO: replace with arm_center = (boxsize + arm_len)/2.;
+  arm_center_y = sin(arm*PI/2.) * (boxsize + arm_len)/2.;  //        rotate(arm*PI/2.); translate(arm_center, 0.);
+  arm_center_z = -boxsize/10.;
   pushMatrix();
+  translate(arm_center_x, arm_center_y, arm_center_z);
+  box(arm_len*cos(arm*PI/2) + arm_wid*sin(arm*PI/2), arm_len*sin(arm*PI/2) + arm_wid*cos(arm*PI/2), arm_wid);  // TODO (cont): box(arm_len, arm_wid, arm_wid);
+  popMatrix();
+}
+
+/* Draws propeller "prop" on the plane,
+ * at an angle "theta" with the arm
+ */
+void draw_propeller(int prop, float theta){
+  pushMatrix();
+  float prop_center_x = (arm_len + boxsize/2)*cos(prop*PI/2);
+  float prop_center_y = (arm_len + boxsize/2)*sin(prop*PI/2);
   translate(prop_center_x, prop_center_y);
   rotate(theta);
   ellipse(0, lprop/2,dprop,lprop);
   ellipse(0,-lprop/2,dprop,lprop);
   ellipse(0, 0, dprop, dprop);
   popMatrix();
+}
+
+/* Draws the axes for plotting data */
+void draw_axes(){
+  line(axes_Ox, height*0.9, width*0.95, height*0.9);
+  line(axes_Ox, height*0.9, axes_Ox, height*0.65);
+  line(axes_Ox, height*0.6, width*0.95, height*0.6);
+  line(axes_Ox, height*0.6, axes_Ox, height*0.35);
+  line(axes_Ox, height*0.3, width*0.95, height*0.3);
+  line(axes_Ox, height*0.3, axes_Ox, height*0.05);
 }
