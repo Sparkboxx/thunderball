@@ -1,13 +1,19 @@
-#ifndef WMP_EXTENSIONS
-#define WMP_EXTENSIONS
+#ifndef EXTENSIONS_H
+#define EXTENSIONS_H
 
 #include "accelerometer.h"
-#include "button.h"
-#include "stick.h"
+
+struct Stick {
+  int x,y;
+}
+
+struct Button {
+  int pressed;
+}
 
 class Extension {
   public:
-    virtual unsigned char activation_signal()=0;
+    unsigned char activation_signal()=0;
 };
 
 class Nunchuck: public Extension {
@@ -16,14 +22,14 @@ class Nunchuck: public Extension {
   Stick stick;
 
   public:
-    static unsigned char activation_signal(){
+    unsigned char activation_signal(){
       return 0x05;
     };
 };
 
 class ClassicController: public Extension {
   public:
-    static unsigned char activation_signal(){
+    unsigned char activation_signal(){
       return 0x05;
     };
 };

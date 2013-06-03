@@ -1,5 +1,5 @@
-#ifndef GYRO
-#define GYRO
+#ifndef GYRO_H
+#define GYRO_H
 
 /*
   The Wii MotionPlus (wm+ or WMP) uses i2c (Inter-Integrated Circuits) for all of its communications.

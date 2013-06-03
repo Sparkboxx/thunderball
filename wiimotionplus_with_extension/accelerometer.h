@@ -1,5 +1,5 @@
-#ifdef ACCELEROMETER
-#define ACCELEROMETER
+#ifdef ACCELEROMETER_H
+#define ACCELEROMETER_H
 
 class Accelerometer{
   // Values off the accellerometer
