@@ -8,9 +8,11 @@
 #ifndef WMP_H
 #define WMP_H
 
-#include "extensions.h"
+//#include "/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Arduino.h"
+#include <Arduino.h>
 #include "WMPWireTransfer.h"
 #include "WMPDataMapper.h"
+#include "extensions.h"
 #include "gyro.h"
 
 /*
@@ -27,15 +29,15 @@
   http://wiibrew.org/wiki/Wiimote/Extension_Controllers
 
 */
-
 class WMP {
   Extension* pextension;
   bool extension_connected;
-  WMPWireTransfer communicator;
-  WMPDataMapper mapper(&this);
+  WMPWireTransfer *communicator;
+  WMPDataMapper *mapper;
 
   public:
     WMP ();
+    void initialize();
     Gyro gyro;
 
     // Since we have to handle both the connection of an extension as well as

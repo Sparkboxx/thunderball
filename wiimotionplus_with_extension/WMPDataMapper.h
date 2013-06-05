@@ -1,11 +1,12 @@
 #ifndef WMPDATAMAPPER_H
 #define WMPDATAMAPPER_H
 
-#include "wmp.h"
 #include "WMPNunchuckDataMapper.h"
 #include "WMPGyroDataMapper.h"
 
-class WMPDataMapper{
+class WMP;
+
+class WMPDataMapper {
   WMP* pwmp;
   WMPNunchuckDataMapper nunchuck_mapper;
   WMPGyroDataMapper gyro_mapper;

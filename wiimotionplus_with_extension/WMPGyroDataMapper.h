@@ -11,7 +11,6 @@ class WMPGyroDataMapper{
 
   public:
     void set_wmp(WMP* wmp);
-    Gyro* gyro();
     void map(unsigned char* new_data);
     int set_yaw();
     int set_pitch();

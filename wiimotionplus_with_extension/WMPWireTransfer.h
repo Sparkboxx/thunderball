@@ -1,8 +1,9 @@
 # ifndef WMPWIRETRANSFER_H
 # define WMPWIRETRANSFER_H
 
-#include "wmp.h"
 #include "utility/Wire.h"
+
+class WMP;
 
 class WMPWireTransfer {
   WMP* pwmp;

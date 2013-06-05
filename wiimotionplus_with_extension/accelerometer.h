@@ -1,7 +1,7 @@
 #ifdef ACCELEROMETER_H
 #define ACCELEROMETER_H
 
-class Accelerometer{
+class Accelerometer {
   // Values off the accellerometer
   int x, y, z;
 
@@ -17,3 +17,5 @@ class Accelerometer{
 };
 
 #endif
+
+

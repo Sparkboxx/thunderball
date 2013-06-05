@@ -1,10 +1,15 @@
 #include "wmp.h"
 
+
 WMP::WMP (){
   pextension = 0;
   extension_connected = false;
-  mapper = new WMPDataMapper(&this);
 };
+
+void WMP::initialize(){
+  communicator = new WMPWireTransfer(this);
+  mapper = new WMPDataMapper(this);
+}
 
 void WMP::attach_extension(Extension* pext){
   pextension = pext;
@@ -24,9 +29,9 @@ unsigned char WMP::activation_signal(){
 };
 
 void WMP::turn_on(){
-  communicator.turn_on();
+  communicator->turn_on();
 };
 
 void WMP::update() {
-  mapper.map(communicator.receive_data());
+  mapper->map(communicator->receive_data());
 };
