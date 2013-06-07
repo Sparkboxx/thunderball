@@ -1,14 +1,10 @@
 #include "WMPWireTransfer.h"
 
-void WMPWireTransfer::turn_on(){
+void WMPWireTransfer::turn_on(unsigned char signal){
   Wire.beginTransmission(0x53);    //WM+ starts out deactivated at address 0x53
   Wire.write(0xfe);                //send 0x07 to address 0xFE to activate WM+
-  Wire.write(pwmp->activation_signal());
+  Wire.write(signal);
   Wire.endTransmission();          //WM+ jumps to address 0x52 and is now active
-};
-
-void WMPWireTransfer::set_wmp(WMP* wmp){
-  pwmp = wmp;
 };
 
 void WMPWireTransfer::send_zero(){
