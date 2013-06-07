@@ -99,9 +99,8 @@ this is also why you see the <13:8> position definition in bytes 3,4 and 5.
 
 */
 
-void WMPGyroDataMapper::set_wmp(WMP* wmp){
-  pwmp = wmp;
-  gyro = &(pwmp->gyro);
+void WMPGyroDataMapper::set_wmp(Gyro* g){
+  gyro = g;
 };
 
 void WMPGyroDataMapper::map(unsigned char* new_data){
