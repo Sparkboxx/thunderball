@@ -1,7 +1,7 @@
 # ifndef WMPWIRETRANSFER_H
 # define WMPWIRETRANSFER_H
 
-#include "utility/Wire.h"
+#include <Wire.h>
 
 class WMP;
 

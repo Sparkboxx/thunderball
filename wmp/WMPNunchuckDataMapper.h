@@ -1,6 +1,10 @@
 #ifndef WMPNUNCHUCKDATAMAPPER_H
 #define WMPNUNCHUCKDATAMAPPER_H
 
+#include <wmp.h>
+
+class WMP;
+
 class WMPNunchuckDataMapper {
   unsigned char *data;
   WMP* pwmp;
