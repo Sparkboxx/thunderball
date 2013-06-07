@@ -1,16 +1,15 @@
 #ifndef WMPGYRODATAMAPPER_H
 #define WMPGYRODATAMAPPER_H
 
-#include "wmp.h"
 #include "gyro.h"
 
 class WMPGyroDataMapper{
   unsigned char* data;
-  WMP* pwmp;
   Gyro* gyro;
+  bool extension_connected;
 
   public:
-    void set_wmp(WMP* wmp);
+    WMPGyroDataMapper(Gyro*);
     void map(unsigned char* new_data);
     void parse_yaw();
     void parse_pitch();

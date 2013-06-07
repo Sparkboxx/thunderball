@@ -6,12 +6,10 @@ WMP::WMP (){
 };
 
 void WMP::initialize(){
-  communicator = new WMPWireTransfer;
-  communicator->set_wmp(this);
-
-  mapper = new WMPDataMapper;
-  mapper->set_wmp(this);
-}
+  gyro = new Gyro();
+  communicator = new WMPWireTransfer();
+  mapper = new WMPDataMapper(gyro);
+};
 
 void WMP::attach_extension(Extension* pext){
   pextension = pext;
@@ -31,7 +29,7 @@ unsigned char WMP::activation_signal(){
 };
 
 void WMP::turn_on(){
-  communicator->turn_on();
+  communicator->turn_on(activation_signal());
 };
 
 void WMP::update() {

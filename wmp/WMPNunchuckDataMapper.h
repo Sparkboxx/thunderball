@@ -1,19 +1,14 @@
 #ifndef WMPNUNCHUCKDATAMAPPER_H
 #define WMPNUNCHUCKDATAMAPPER_H
 
-#include "wmp.h"
 #include "accelerometer.h"
-
-class WMP;
 
 class WMPNunchuckDataMapper {
   unsigned char *data;
-  WMP* pwmp;
   Accelerometer* accel;
 
   public:
     void map(unsigned char*);
-    void parse_wmp(WMP*);
     void parse_acc_x();
     void parse_acc_y();
     void parse_acc_z();

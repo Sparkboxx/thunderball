@@ -5,18 +5,12 @@
 #include "nunchuck.h"
 #include "classic_controller.h"
 
-class WMP;
-
 class WMPWireTransfer {
-  WMP* pwmp;
   unsigned char* data;
 
   public:
     // Turn on the WMP and it's extensions
-    void turn_on();
-
-    // Attach a WMP
-    void set_wmp(WMP*);
+    void turn_on(unsigned char);
 
     // In order to receive info from the WMP we need to be able to send it a
     // zero byte.

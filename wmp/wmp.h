@@ -10,10 +10,18 @@
 
 //#include "/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Arduino.h"
 #include <Arduino.h>
-#include "WMPWireTransfer.h"
-#include "WMPDataMapper.h"
-#include "extensions.h"
+
 #include "gyro.h"
+#include "accelerometer.h"
+#include "nunchuck.h"
+#include "classic_controller.h"
+#include "extensions.h"
+
+#include "WMPWireTransfer.h"
+
+#include "WMPDataMapper.h"
+#include "WMPGyroDataMapper.h"
+#include "WMPNunchuckDataMapper.h"
 
 /*
   The Wii MotionPlus (wm+ or WMP) uses i2c (Inter-Integrated Circuits) for all of its communications.
@@ -30,8 +38,6 @@
 
 */
 
-class WMPWireTransfer;
-
 class WMP {
   Extension* pextension;
   bool extension_connected;
@@ -41,7 +47,7 @@ class WMP {
   public:
     WMP ();
     void initialize();
-    Gyro gyro;
+    Gyro* gyro;
 
     // Since we have to handle both the connection of an extension as well as
     // the extension connected bool, we use a function for it all.
