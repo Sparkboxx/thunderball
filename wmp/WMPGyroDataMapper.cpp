@@ -138,6 +138,6 @@ int WMPGyroDataMapper::set_roll_slow(){
   gyro->set_roll_slow((data[4] >> 1) & 0x0001);
 };
 
-bool WMPGyroDataMapper::set_extension_connected(){
-  pwmp->set_extension_connected(data[4] & 0x0001);
+void WMPGyroDataMapper::set_extension_connected(){
+  extension_connected = data[4] & 0x0001;
 };

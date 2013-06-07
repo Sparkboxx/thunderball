@@ -6,6 +6,7 @@
 class WMPGyroDataMapper{
   unsigned char* data;
   Gyro* gyro;
+  bool extension_connected;
 
   public:
     WMPGyroDataMapper(Gyro*);
@@ -16,7 +17,7 @@ class WMPGyroDataMapper{
     int set_yaw_slow();
     int set_pitch_slow();
     int set_roll_slow();
-    bool set_extension_connected();
+    void set_extension_connected();
 };
 
 #endif
