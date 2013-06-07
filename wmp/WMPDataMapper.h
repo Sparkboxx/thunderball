@@ -4,16 +4,15 @@
 #include "WMPNunchuckDataMapper.h"
 #include "WMPGyroDataMapper.h"
 
-class WMP;
-
 class WMPDataMapper {
   WMP* pwmp;
-  WMPNunchuckDataMapper nunchuck_mapper;
-  WMPGyroDataMapper gyro_mapper;
+  WMPNunchuckDataMapper* nunchuck_mapper;
+  WMPGyroDataMapper* gyro_mapper;
 
   public:
-    WMPDataMapper(WMP*);
+    WMPDataMapper();
     void map(unsigned char*);
+    void set_wmp(WMP*);
     bool extension_mapping(unsigned char*);
 };
 

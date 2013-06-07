@@ -29,6 +29,9 @@
   http://wiibrew.org/wiki/Wiimote/Extension_Controllers
 
 */
+
+class WMPWireTransfer;
+
 class WMP {
   Extension* pextension;
   bool extension_connected;
