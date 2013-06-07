@@ -53,7 +53,6 @@ this is also why you see the <13:8> position definition in bytes 3,4 and 5.
    the << operator moves bits to the left, so:
    0011 1111 << 8 becomes
    0011 1111 0000 0000 (notice how this now is a 16 bit value)
-
    by applying the >> 2 and << 8 operators to bit <13:8> of byte 3
    and adding the bits of the first byte, we construct the 'original' value
    of YAW, PITCH or ROLL.
@@ -78,6 +77,10 @@ this is also why you see the <13:8> position definition in bytes 3,4 and 5.
    shifted_to_right = (data[3] >> 2)            #=> 0011 1111
    shifted_to_left = shift_to_right << 8        #=> 0011 1111 0000 0000
    yaw = shifted_to_left + data[0]              #=> 0011 1111 0001 1101
+
+   NOTE: For the high bits (8-13) of yaw, pitch and roll,  the 
+         last 2 bits of byte 3, 4 and 5 resp. are irrelevant.
+         They get discarded by shifting twice to the right.
 
    ******** Visual representation of code example above *********
 
