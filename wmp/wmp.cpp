@@ -1,6 +1,5 @@
 #include "wmp.h"
 
-
 WMP::WMP (){
   pextension = 0;
   extension_connected = false;
