@@ -6,8 +6,11 @@ WMP::WMP (){
 };
 
 void WMP::initialize(){
-  communicator = new WMPWireTransfer(this);
-  mapper = new WMPDataMapper(this);
+  communicator = new WMPWireTransfer;
+  communicator->set_wmp(this);
+
+  mapper = new WMPDataMapper;
+  mapper->set_wmp(this);
 }
 
 void WMP::attach_extension(Extension* pext){

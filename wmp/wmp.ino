@@ -1,14 +1,16 @@
 #include <wmp.h>
 
-WMP wmp;
+WMP* wmp = new WMP();
 
 void setup() {
-  wmp = new WMP();
-  wmp.initialize();
-  wmp.turn_on();
+  Nunchuck* nunchuck = new Nunchuck();
+
+  wmp->initialize();
+  wmp->attach_extension(nunchuck);
+  wmp->turn_on();
 }
 
 void loop() {
-  wmp.receive_data();
+  wmp->update();
   delay(100);
 }
