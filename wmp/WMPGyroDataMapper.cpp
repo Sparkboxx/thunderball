@@ -106,36 +106,36 @@ void WMPGyroDataMapper::set_wmp(WMP* wmp){
 
 void WMPGyroDataMapper::map(unsigned char* new_data){
   data = new_data;
-  set_yaw(); set_pitch(); set_roll();
-  set_yaw_slow(); set_pitch_slow(); set_roll_slow();
+  parse_yaw(); parse_pitch(); parse_roll();
+  parse_yaw_slow(); parse_pitch_slow(); parse_roll_slow();
   set_extension_connected();
 };
 
-int WMPGyroDataMapper::set_yaw(){
+void WMPGyroDataMapper::parse_yaw(){
   int result = ((data[3]>>2)<<8)+data[0];
   gyro->set_yaw(result);
 };
 
-int WMPGyroDataMapper::set_pitch(){
+void WMPGyroDataMapper::parse_pitch(){
   int result = ((data[5]>>2)<<8)+data[2];
   gyro->set_pitch(result);
 };
 
-int WMPGyroDataMapper::set_roll(){
+void WMPGyroDataMapper::parse_roll(){
   int result = ((data[4]>>2)<<8)+data[1];
   gyro->set_roll(result);
 };
 
-int WMPGyroDataMapper::set_yaw_slow(){
+void WMPGyroDataMapper::parse_yaw_slow(){
   int result = (data[3] >> 1) & 0x0001;
   gyro->set_yaw_slow(result);
 };
 
-int WMPGyroDataMapper::set_pitch_slow(){
+void WMPGyroDataMapper::parse_pitch_slow(){
   gyro->set_pitch_slow(data[3] & 0x0001);
 };
 
-int WMPGyroDataMapper::set_roll_slow(){
+void WMPGyroDataMapper::parse_roll_slow(){
   gyro->set_roll_slow((data[4] >> 1) & 0x0001);
 };
 

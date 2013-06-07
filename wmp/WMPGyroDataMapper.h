@@ -12,12 +12,12 @@ class WMPGyroDataMapper{
   public:
     void set_wmp(WMP* wmp);
     void map(unsigned char* new_data);
-    int set_yaw();
-    int set_pitch();
-    int set_roll();
-    int set_yaw_slow();
-    int set_pitch_slow();
-    int set_roll_slow();
+    void parse_yaw();
+    void parse_pitch();
+    void parse_roll();
+    void parse_yaw_slow();
+    void parse_pitch_slow();
+    void parse_roll_slow();
     bool set_extension_connected();
 };
 
