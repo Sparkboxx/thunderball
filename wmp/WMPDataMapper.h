@@ -9,7 +9,7 @@ class WMPDataMapper {
   WMPGyroDataMapper* gyro_mapper;
 
   public:
-    WMPDataMapper();
+    WMPDataMapper(Gyro*);
     void map(unsigned char*);
     bool extension_mapping(unsigned char*);
 };
