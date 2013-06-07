@@ -5,11 +5,11 @@ WMPDataMapper::WMPDataMapper(){
   gyro_mapper = new WMPGyroDataMapper();
 };
 
-void WMPDataMapper::set_wmp(WMP* wmp){
-  pwmp = wmp;
-  nunchuck_mapper->set_wmp(pwmp);
-  gyro_mapper->set_wmp(pwmp);
-};
+//void WMPDataMapper::set_wmp(WMP* wmp){
+  //pwmp = wmp;
+  //nunchuck_mapper->set_wmp(pwmp);
+  //gyro_mapper->set_wmp(pwmp);
+//};
 
 void WMPDataMapper::map(unsigned char* data){
   if( extension_mapping(data) ){
