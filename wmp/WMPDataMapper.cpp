@@ -1,15 +1,15 @@
 #include "WMPDataMapper.h"
 
-WMPDataMapper::WMPDataMapper(){
+WMPDataMapper::WMPDataMapper(Gyro* g){
   nunchuck_mapper = new WMPNunchuckDataMapper();
-  gyro_mapper = new WMPGyroDataMapper();
+  gyro_mapper = new WMPGyroDataMapper(g);
 };
 
-void WMPDataMapper::set_wmp(WMP* wmp){
-  pwmp = wmp;
-  nunchuck_mapper->set_wmp(pwmp);
-  gyro_mapper->set_wmp(pwmp);
-};
+//void WMPDataMapper::set_wmp(WMP* wmp){
+  //pwmp = wmp;
+  //nunchuck_mapper->set_wmp(pwmp);
+  //gyro_mapper->set_wmp(pwmp);
+//};
 
 void WMPDataMapper::map(unsigned char* data){
   if( extension_mapping(data) ){
