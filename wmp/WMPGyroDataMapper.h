@@ -1,6 +1,8 @@
 #ifndef WMPGYRODATAMAPPER_H
 #define WMPGYRODATAMAPPER_H
 
+#define GYRO_MAX 8191
+
 #include "gyro.h"
 
 class WMPGyroDataMapper{

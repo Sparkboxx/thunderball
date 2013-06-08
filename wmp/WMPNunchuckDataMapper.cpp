@@ -58,20 +58,18 @@ void WMPNunchuckDataMapper::parse_acc_z(){
   accel->set_acc_z(((data[4] >> 1) << 3) + ((data[5] >> 5) & 0x0006)); 
 };
 
-/*
+
 void WMPNunchuckDataMapper::parse_butt_c(){
-  butt_c = ; 
+  nunchuck->set_butt_c((bool) !!(data[5] & 0x8)); 
 };
 
 void WMPNunchuckDataMapper::parse_butt_z(){
-  butt_z = ; 
+  nunchuck->set_butt_z((bool) !!(data[5] & 0x4)); 
 };
 
-void WMPNunchuckDataMapper::parse_analog_x(){
-  analog_x = ; 
+void WMPNunchuckDataMapper::parse_analog(){
+  int analog_x = (int) data[0];
+  int analog_y = (int) data[1];
+  nunchuck->set_analog(analog_x, analog_y); 
 };
 
-void WMPNunchuckDataMapper::parse_analog_y(){
-  analog_y = ; 
-};
-*/
