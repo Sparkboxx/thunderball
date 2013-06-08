@@ -1,4 +1,5 @@
 #include "accelerometer.h"
+#include <math.h>
 
 /*void Accelerometer::calibrate_x(int xdata[N_CALIBRATE]){
   acc_x0 = mean(xdata);
@@ -22,6 +23,6 @@ void Accelerometer::set_acc_z(int value){
 };
 
 // TODO: Check if a0 is initialized. Otherwise may cause division by 0.
-void set_g_unit(){
+void Accelerometer::set_g_unit(){
   g_unit = sqrt(acc_x0*acc_x0 + acc_y0*acc_y0 + acc_z0*acc_z0); 
 };

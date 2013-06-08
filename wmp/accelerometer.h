@@ -1,7 +1,7 @@
-#ifdef ACCELEROMETER_H
+#ifndef ACCELEROMETER_H
 #define ACCELEROMETER_H
 
-#define N_CALIBRATE 10
+#define ACCELEROMETER_MAX 1023
 
 class Accelerometer {
   // Values off the accellerometer
@@ -14,7 +14,7 @@ class Accelerometer {
    */
 
   float acc_x0, acc_y0, acc_z0;
-  float g_unit = 1.0;
+  float g_unit;
 
   public:
     int calibrate_x(int);
