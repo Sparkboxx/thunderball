@@ -5,11 +5,13 @@ unsigned char Nunchuck::activation_signal(){
 };
 
 void Nunchuck::set_butt_c(bool value){
-  c = (Button) value;
+  c.pressed == value ? c.changed = false : c.changed = true;
+  c.pressed = (bool) value;
 };
 
 void Nunchuck::set_butt_z(bool value){
-  z = (Button) value;
+  z.changed = z.pressed != value;
+  z.pressed = (bool) value;
 };
 
 /* Sets analog stick x-y values in [-1,1] */

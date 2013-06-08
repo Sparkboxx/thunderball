@@ -1,16 +1,10 @@
 #ifndef NUNCHUCK_H
 #define NUNCHUCK_H
 
+#define NUNCHUCK_ANALOG_MAX 255
+
 #include "extensions.h"
-//#include "accelerometer.h"
-
-typedef bool Button;
-
-typedef struct
-{
-  float x;
-  float y;
-} Stick;
+// #include "accelerometer.h"
 
 class Nunchuck: public Extension {
   //Accelerometer acc;

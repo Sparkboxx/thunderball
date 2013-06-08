@@ -1,15 +1,18 @@
 #ifndef EXTENSIONS_H
 #define EXTENSIONS_H
 
-#include "accelerometer.h"
+// #include "accelerometer.h"
 
-struct Stick {
-  int x,y;
-};
+typedef struct tagStick
+{
+  float x;
+  float y;
+} Stick;
 
-struct Button {
-  int pressed;
-};
+typedef struct tagButton {
+  bool pressed;
+  bool changed;
+} Button;
 
 class Extension {
   public:
