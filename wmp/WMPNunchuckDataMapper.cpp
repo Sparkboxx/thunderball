@@ -28,15 +28,18 @@ http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Wii_Motion_Plus
 
 */
 
-void WMPNunchuckDataMapper::set_wmp(WMP* wmp){
+/*void WMPNunchuckDataMapper::set_wmp(WMP* wmp){
   pwmp = wmp;
 };
+*/
+
+
 
 void WMPNunchuckDataMapper::map(unsigned char new_data[]){
   data = new_data;
   parse_acc_x(); parse_acc_y(); parse_acc_z();
   parse_butt_c(); parse_butt_z();
-  parse_analog_x(); parse_analog_y();
+  parse_analog();
 };
 
 /*void WMPNunchuckDataMapper::initialize(){
