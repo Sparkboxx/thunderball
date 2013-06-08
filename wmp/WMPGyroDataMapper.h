@@ -12,6 +12,7 @@ class WMPGyroDataMapper{
 
   public:
     WMPGyroDataMapper(Gyro*);
+    void set_gyro(Gyro*);
     void map(unsigned char* new_data);
     void parse_yaw();
     void parse_pitch();

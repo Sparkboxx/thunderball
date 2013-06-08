@@ -99,7 +99,7 @@ this is also why you see the <13:8> position definition in bytes 3,4 and 5.
 
 */
 
-void WMPGyroDataMapper::set_wmp(Gyro* g){
+void WMPGyroDataMapper::set_gyro(Gyro* g){
   gyro = g;
 };
 
@@ -138,6 +138,6 @@ void WMPGyroDataMapper::parse_roll_slow(){
   gyro->set_roll_slow((data[4] >> 1) & 0x0001);
 };
 
-void WMPGyroDataMapper::set_extension_connected(){
+bool WMPGyroDataMapper::set_extension_connected(){
   extension_connected = data[4] & 0x0001;
 };
