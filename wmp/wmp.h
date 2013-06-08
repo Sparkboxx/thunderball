@@ -10,6 +10,7 @@
 
 //#include "/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Arduino.h"
 #include <Arduino.h>
+//#include <Wire.h>
 
 #include "gyro.h"
 #include "accelerometer.h"
