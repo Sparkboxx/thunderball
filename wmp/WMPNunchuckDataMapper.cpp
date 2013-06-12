@@ -28,13 +28,6 @@ http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Wii_Motion_Plus
 
 */
 
-/*void WMPNunchuckDataMapper::set_wmp(WMP* wmp){
-  pwmp = wmp;
-};
-*/
-
-
-
 void WMPNunchuckDataMapper::map(unsigned char new_data[]){
   data = new_data;
   parse_acc_x(); parse_acc_y(); parse_acc_z();
@@ -42,37 +35,32 @@ void WMPNunchuckDataMapper::map(unsigned char new_data[]){
   parse_analog();
 };
 
-/*void WMPNunchuckDataMapper::initialize(){
-}
-*/
-
 // this should add bit 4 as bit 1 (verify)
 void WMPNunchuckDataMapper::parse_acc_x(){
-  accel->set_acc_x((data[2] << 2) + ((data[5] >> 3) & 0x0002)); 
+  nunchuck->set_acc_x((data[2] << 2) + ((data[5] >> 3) & 0x0002));
 };
 
 // this should add bit 5 as bit 1 (verify)
 void WMPNunchuckDataMapper::parse_acc_y(){
-  accel->set_acc_y((data[3] << 2) + ((data[5] >> 4) & 0x0002) ); 
+  nunchuck->set_acc_y((data[3] << 2) + ((data[5] >> 4) & 0x0002) );
 };
 
 // this should add the bit 6 and 7 as bit 1 and 2 (verify)
 void WMPNunchuckDataMapper::parse_acc_z(){
-  accel->set_acc_z(((data[4] >> 1) << 3) + ((data[5] >> 5) & 0x0006)); 
+  nunchuck->set_acc_z(((data[4] >> 1) << 3) + ((data[5] >> 5) & 0x0006));
 };
 
-
 void WMPNunchuckDataMapper::parse_butt_c(){
-  nunchuck->set_butt_c((bool) !!(data[5] & 0x8)); 
+  nunchuck->set_butt_c((bool) !!(data[5] & 0x8));
 };
 
 void WMPNunchuckDataMapper::parse_butt_z(){
-  nunchuck->set_butt_z((bool) !!(data[5] & 0x4)); 
+  nunchuck->set_butt_z((bool) !!(data[5] & 0x4));
 };
 
 void WMPNunchuckDataMapper::parse_analog(){
   int analog_x = (int) data[0];
   int analog_y = (int) data[1];
-  nunchuck->set_analog(analog_x, analog_y); 
+  nunchuck->set_analog(analog_x, analog_y);
 };
 

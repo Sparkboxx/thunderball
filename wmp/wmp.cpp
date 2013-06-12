@@ -7,6 +7,7 @@ WMP::WMP (){
 
 void WMP::initialize(){
   gyro = new Gyro();
+
   communicator = new WMPWireTransfer();
   mapper = new WMPDataMapper(gyro);
 };

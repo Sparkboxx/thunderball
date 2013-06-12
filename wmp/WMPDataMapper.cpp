@@ -1,8 +1,12 @@
 #include "WMPDataMapper.h"
 
 WMPDataMapper::WMPDataMapper(Gyro* g){
-  nunchuck_mapper = new WMPNunchuckDataMapper();
   gyro_mapper = new WMPGyroDataMapper(g);
+};
+
+WMPDataMapper::WMPDataMapper(Gyro* g, Nunchuck* n){
+  gyro_mapper = new WMPGyroDataMapper(g);
+  nunchuck_mapper = new WMPNunchuckDataMapper(n);
 };
 
 void WMPDataMapper::map(unsigned char* data){
