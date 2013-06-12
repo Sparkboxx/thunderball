@@ -1,5 +1,6 @@
 #include "Arduino.h"
 
+#include "utility/Wire.h"
 #include <wmp.h>
 
 WMP* wmp = new WMP();
