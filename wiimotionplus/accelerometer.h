@@ -5,7 +5,7 @@
 
 class Accelerometer {
   // Values off the accellerometer
-  int acc_x, acc_y, acc_z;
+  int x, y, z;
 
   /* In order to work with the Accelerometer, we have to set the initial value.
    * This will give the initial gravitational acceleration vector and will let us
@@ -13,7 +13,7 @@ class Accelerometer {
    * 2) combine gyroscope measurement to get absolute acceleration and subtract g
    */
 
-  float acc_x0, acc_y0, acc_z0;
+  float x0, y0, z0;
   float g_unit;
 
   public:
@@ -26,6 +26,10 @@ class Accelerometer {
     void set_x(int);
     void set_y(int);
     void set_z(int);
+
+    int get_x();
+    int get_y();
+    int get_z();
 };
 
 #endif
