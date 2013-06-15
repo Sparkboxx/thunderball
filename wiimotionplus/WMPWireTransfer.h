@@ -8,9 +8,9 @@
 
 class WMPWireTransfer {
   unsigned char* data;
-  TwoWire* wire;
 
   public:
+    TwoWire* wire;
     WMPWireTransfer(TwoWire*);
 
     // Turn on the WMP and it's extensions
