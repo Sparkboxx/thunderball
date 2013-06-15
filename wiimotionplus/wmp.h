@@ -36,12 +36,13 @@
 */
 
 class WMP {
-  Extension* pextension;
   bool extension_connected;
   WMPWireTransfer *communicator;
   WMPDataMapper *mapper;
 
   public:
+    Extension* extension;
+    Nunchuck* nunchuck;
     WMP ();
     void initialize();
     Gyro* gyro;
@@ -49,6 +50,7 @@ class WMP {
     // Since we have to handle both the connection of an extension as well as
     // the extension connected bool, we use a function for it all.
     void attach_extension(Extension*);
+    void attach_nunchuck(Nunchuck*);
 
     // check if an extension (nunchuck or classic controller)
     // is connected to the wii-motion plus. returns true if an extension is

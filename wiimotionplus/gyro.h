@@ -40,6 +40,12 @@ class Gyro{
     void set_yaw_slow(bool);
     void set_pitch_slow(bool);
     void set_roll_slow(bool);
+    int get_yaw();
+    int get_pitch();
+    int get_roll();
+    int get_yaw_slow();
+    int get_pitch_slow();
+    int get_roll_slow();
 };
 
 #endif

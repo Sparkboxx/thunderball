@@ -9,9 +9,9 @@
 class Nunchuck: public Extension {
   Button c,z;
   Stick stick;
-  Accelerometer* acc;
 
   public:
+    Accelerometer* acc;
     Nunchuck();
     unsigned char activation_signal();
     void set_butt_c(bool);

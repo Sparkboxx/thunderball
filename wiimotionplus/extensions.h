@@ -17,6 +17,7 @@ typedef struct tagButton {
 class Extension {
   public:
     virtual unsigned char activation_signal()=0;
+    virtual ~Extension(){};
 };
 
 #endif
