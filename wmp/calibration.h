@@ -14,10 +14,13 @@ struct calib_node
   calib_node* next;
 };
 
-/* This function will gather N pieces of data from 
- * the communicator and store them into a linked list.
+/* This function will gather at least na and ng pieces of data from 
+ * the communicator and store them into linked lists for the
+ * gyro and accelerometer.
  */
 void get_calibration_data(int, WMPWireTransfer*);
+
+void add_calibration_data(struct calib_node*, byte);
 
 /* This function will calibrate the gyro, given the 
  * calibration data list.
