@@ -1,7 +1,6 @@
 # ifndef WMPWIRETRANSFER_H
 # define WMPWIRETRANSFER_H
 
-#include <Wire.h>
 #include "nunchuck.h"
 #include "classic_controller.h"
 
