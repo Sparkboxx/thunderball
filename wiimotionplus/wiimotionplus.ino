@@ -1,10 +1,9 @@
-#include "Arduino.h"
-
-#include <wmp.h>
+#include <Wire2.h>
+#include "wmp.h"
 
 WMP* wmp = new WMP();
 
-void setup() {
+void setup(void) {
   Nunchuck* nunchuck = new Nunchuck();
 
   wmp->initialize();
@@ -12,7 +11,7 @@ void setup() {
   wmp->turn_on();
 }
 
-void loop() {
+void loop(void) {
   wmp->update();
   delay(100);
 }

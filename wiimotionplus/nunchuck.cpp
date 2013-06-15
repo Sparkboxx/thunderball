@@ -1,5 +1,9 @@
 #include "nunchuck.h"
 
+Nunchuck::Nunchuck(){
+  acc = new Accelerometer();
+};
+
 unsigned char Nunchuck::activation_signal(){
   return 0x05;
 };
@@ -18,4 +22,14 @@ void Nunchuck::set_butt_z(bool value){
 void Nunchuck::set_analog(int value_x, int value_y){
   stick.x = 2.*((float) value_x / NUNCHUCK_ANALOG_MAX) - 1.;
   stick.y = 2.*((float) value_y / NUNCHUCK_ANALOG_MAX) - 1.;
+};
+
+void Nunchuck::set_acc_x(int value){
+  acc->set_x(value);
+};
+void Nunchuck::set_acc_y(int value){
+  acc->set_y(value);
+};
+void Nunchuck::set_acc_z(int value){
+  acc->set_z(value);
 };

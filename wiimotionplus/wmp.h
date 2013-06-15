@@ -8,9 +8,6 @@
 #ifndef WMP_H
 #define WMP_H
 
-//#include "/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Arduino.h"
-#include <Arduino.h>
-
 #include "gyro.h"
 #include "accelerometer.h"
 #include "nunchuck.h"

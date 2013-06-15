@@ -3,6 +3,7 @@
 
 #include "WMPNunchuckDataMapper.h"
 #include "WMPGyroDataMapper.h"
+#include "gyro.h"
 
 class WMPDataMapper {
   WMPNunchuckDataMapper* nunchuck_mapper;
@@ -10,6 +11,7 @@ class WMPDataMapper {
 
   public:
     WMPDataMapper(Gyro*);
+    WMPDataMapper(Gyro*, Nunchuck*);
     void map(unsigned char*);
     bool extension_mapping(unsigned char*);
 };
