@@ -28,6 +28,8 @@
 
   http://www.arduino.cc/en/Reference/Wire
 
+  For the Arduino Uni it is: A4(SDA) and A5(SCL)
+
   The reference makes note of the SDA and the SCL pins. You can see which pins
   this are on the WM+ by looking here:
 

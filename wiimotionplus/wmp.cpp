@@ -30,7 +30,7 @@ void WMP::set_extension_connected(bool connected){
 
 unsigned char WMP::activation_signal(){
   if(extension_connected){
-    return extension->activation_signal();
+    return nunchuck->activation_signal();
   }else{
     return 0x04;
   };
