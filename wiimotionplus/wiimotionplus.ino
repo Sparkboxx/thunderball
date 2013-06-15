@@ -7,6 +7,7 @@ WMP* wmp = new WMP();
 
 #ifdef DEBUG
 void output_gyro(){
+  Serial.print("Gyro: ");
   Serial.print(wmp->gyro->get_yaw());
   Serial.print(" - ");
   Serial.print(wmp->gyro->get_pitch());
@@ -16,11 +17,13 @@ void output_gyro(){
 }
 
 void output_acc(){
+  Serial.print("Acc: ");
   Serial.print(wmp->nunchuck->acc->get_x());
   Serial.print(" - ");
   Serial.print(wmp->nunchuck->acc->get_y());
   Serial.print(" - ");
   Serial.print(wmp->nunchuck->acc->get_z());
+  Serial.println("");
 }
 #endif
 
