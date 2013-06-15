@@ -1,13 +1,18 @@
 # ifndef WMPWIRETRANSFER_H
 # define WMPWIRETRANSFER_H
 
+
 #include "nunchuck.h"
 #include "classic_controller.h"
+#include "Wire2.h"
 
 class WMPWireTransfer {
   unsigned char* data;
+  TwoWire* wire;
 
   public:
+    WMPWireTransfer(TwoWire*);
+
     // Turn on the WMP and it's extensions
     void turn_on(unsigned char);
 
