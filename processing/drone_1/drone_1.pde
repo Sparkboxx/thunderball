@@ -1,7 +1,7 @@
 import processing.serial.*;
 
 Serial port;  // The serial port
-String[][] m;
+String[] m;
 String input_str;
 int lf = 10;    // Linefeed in ASCII
 float lprop = 60.;
@@ -35,11 +35,11 @@ size(800, 600, P3D);
   // Using the first available port (might be different on your computer)
   port = new Serial(this, Serial.list()[0], 9600); 
   port.bufferUntil(lf); 
-  for (int k=0;k<10;k++){
+  /*for (int k=0;k<10;k++){
     port.readString();
     delay(1000);
     println("Dump " + k);
-  }
+  } */
   body_x = width/3.;
   body_y = height/2.;
   axes_Ox = width*2./3.;
@@ -192,11 +192,13 @@ void serialEvent(Serial port) {
  */
 float normalizeInput(int val, int nbits) {
   float norm = float(val)/pow(2,nbits-1) - 1.0;
+  println(val + " - " + norm);
   return norm;
 }
 
-String[][] match_string(String s){
-  return matchAll(s, "(.*),(.*),(.*)");
+String[] match_string(String s){
+  return s.split(" ");
+  // return matchAll(s, "[^\d]([\d]*?)[^\d]");
 }
 
 void setYawPitchRollFromString(String console_line) {
@@ -206,16 +208,17 @@ void setYawPitchRollFromString(String console_line) {
   if ( console_line != null ){
     
   m = match_string(console_line);
-  println(m.length);
-  if ( m != null && m.length == 3){
+ 
+  if ( m != null && int(m[0]) == 0 && m.length == 5){
   
-  yaw += normalizeInput(int(m[0][1]), 14);
-  pitch += normalizeInput(int(m[1][1]), 14);
-  roll += normalizeInput(int(m[2][1]), 14);
-  
-  yaw = (abs(yaw) % 2*PI)*(yaw/abs(yaw));
-  pitch = (abs(pitch) % 2*PI)*(pitch/abs(pitch));
-  roll = (abs(roll) % 2*PI)*(roll/abs(roll));
+  yaw -= normalizeInput(int(m[1]), 14);
+  pitch -= normalizeInput(int(m[2]), 14);
+  roll -= normalizeInput(int(m[3]), 14);
+  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
+
+  yaw = (abs(yaw) % (2*PI))*(yaw/abs(yaw));
+  pitch = (abs(pitch) % (2*PI))*(pitch/abs(pitch));
+  roll = (abs(roll) % (2*PI))*(roll/abs(roll));
   println( "Angles: " + yaw + " - " + pitch + " - " + roll);
   }
 }
