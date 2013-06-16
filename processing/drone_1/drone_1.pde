@@ -1,3 +1,9 @@
+import processing.serial.*;
+
+Serial port;  // The serial port
+String[][] m;
+String input_str;
+int lf = 10;    // Linefeed in ASCII
 float lprop = 60.;
 float dprop = 6;
 float arm_len=100.;
@@ -8,6 +14,9 @@ float body_x = 200;
 float body_y = 200;
 float axes_Ox;
 float axes_Oy;
+float yaw = 0.;
+float pitch = 0.;
+float roll = 0.;
 float angle_x = 1.0;
 float angle_y = 0.0;
 float angle_z = 0.0;
@@ -19,13 +28,25 @@ float[] data3 = new float[ndata];
 
 void setup(){
 size(800, 600, P3D);
-body_x = width/3.;
-body_y = height/2.;
-axes_Ox = width*2./3.;
-axes_Oy = height*3.;
-frameRate(30);
-smooth();
-stroke(#000000);
+
+  // In case you want to see the list of available ports
+  println(Serial.list());
+  
+  // Using the first available port (might be different on your computer)
+  port = new Serial(this, Serial.list()[0], 9600); 
+  port.bufferUntil(lf); 
+  for (int k=0;k<10;k++){
+    port.readString();
+    delay(1000);
+    println("Dump " + k);
+  }
+  body_x = width/3.;
+  body_y = height/2.;
+  axes_Ox = width*2./3.;
+  axes_Oy = height*3.;
+  frameRate(30);
+  smooth();
+  stroke(#000000);
 }
 
 
@@ -34,13 +55,11 @@ void draw()
   background(#DDDDDD);
   stroke(0);
   draw_axes();
-  float yaw = 0.;
-  float pitch = 0.;
-  float roll = 0.;
   float dtheta[] = {0.1, 0.2, 0.3, 0.4};
   int i;
   int data_frame = frameCount % ndata;
-    
+  
+  /*  
   if (mousePressed) {
    angle_x = -2*PI*(mouseY - body_y)/height;
    angle_y = 2*PI*(mouseX - body_x)/width;
@@ -50,6 +69,12 @@ void draw()
   }
 
   yaw = angle_z;
+  */
+  
+  angle_x = pitch;
+  angle_y = roll;
+  angle_z = yaw;
+  
   pushMatrix();
   //angle += 0.05;
   translate(body_x, body_y);
@@ -63,7 +88,8 @@ void draw()
   }
   
   popMatrix();
-  data1[data_frame] = theta[1];
+  // data1[data_frame] = theta[1];
+  data1[data_frame] = angle_x;
   data2[data_frame] = yaw;
   data3[data_frame] = angle_y;
   
@@ -148,3 +174,51 @@ void draw_axes(){
   line(axes_Ox, height*0.3, width*0.95, height*0.3);
   line(axes_Ox, height*0.3, axes_Ox, height*0.05);
 }
+
+
+// Called whenever there is something available to read
+void serialEvent(Serial port) {
+  // Data from the Serial port is read in serialEvent() using the read() function and assigned to the global variable: val
+  input_str = port.readString();
+  // For debugging
+  println( "Raw Input:" + input_str);
+ 
+  setYawPitchRollFromString(input_str);
+}
+
+
+/* Normalizes an nbit-bit sized unsigned integer 
+ * input to a float in [-1,1]
+ */
+float normalizeInput(int val, int nbits) {
+  float norm = float(val)/pow(2,nbits-1) - 1.0;
+  return norm;
+}
+
+String[][] match_string(String s){
+  return matchAll(s, "(.*),(.*),(.*)");
+}
+
+void setYawPitchRollFromString(String console_line) {
+  // String s = "gyro:1234,5333,3333" // Match this with the console output line
+//  String console = "foofoofoo,123,123:123123123123,123";
+
+  if ( console_line != null ){
+    
+  m = match_string(console_line);
+  println(m.length);
+  if ( m != null && m.length == 3){
+  
+  yaw += normalizeInput(int(m[0][1]), 14);
+  pitch += normalizeInput(int(m[1][1]), 14);
+  roll += normalizeInput(int(m[2][1]), 14);
+  
+  yaw = (abs(yaw) % 2*PI)*(yaw/abs(yaw));
+  pitch = (abs(pitch) % 2*PI)*(pitch/abs(pitch));
+  roll = (abs(roll) % 2*PI)*(roll/abs(roll));
+  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
+  }
+}
+}
+
+
