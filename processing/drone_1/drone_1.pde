@@ -17,6 +17,9 @@ float axes_Oy;
 float yaw = 0.;
 float pitch = 0.;
 float roll = 0.;
+float acc_x = 0.;
+float acc_y = 0.;
+float acc_z = 0.;
 float angle_x = 1.0;
 float angle_y = 0.0;
 float angle_z = 0.0;
@@ -183,7 +186,7 @@ void serialEvent(Serial port) {
   // For debugging
   println( "Raw Input:" + input_str);
  
-  setYawPitchRollFromString(input_str);
+  setVariablesFromString(input_str);
 }
 
 
@@ -201,27 +204,60 @@ String[] match_string(String s){
   // return matchAll(s, "[^\d]([\d]*?)[^\d]");
 }
 
-void setYawPitchRollFromString(String console_line) {
-  // String s = "gyro:1234,5333,3333" // Match this with the console output line
-//  String console = "foofoofoo,123,123:123123123123,123";
-
-  if ( console_line != null ){
-    
-  m = match_string(console_line);
+void setVariablesFromString(String input_line) {
  
-  if ( m != null && int(m[0]) == 0 && m.length == 5){
+  m = match_string(input_line);
+  
+  /* Checks for null match */
+  if ( m != null ){
+    
+    /* Check if input comes from motion+ or nunchuck */
+    if ( int(m[0]) == 0 && m.length == 5 ){
+      setMotionPlusVariables(m);
+    }
+    else if ( int(m[0]) == 1 && m.length == 10 ){
+      setNunchuckVariables(m);
+    }
+  }
+}
+
+void setMotionPlusVariables(String[] m){
   
   yaw -= normalizeInput(int(m[1]), 14);
   pitch -= normalizeInput(int(m[2]), 14);
   roll -= normalizeInput(int(m[3]), 14);
   println( "Angles: " + yaw + " - " + pitch + " - " + roll);
 
-  yaw = (abs(yaw) % (2*PI))*(yaw/abs(yaw));
-  pitch = (abs(pitch) % (2*PI))*(pitch/abs(pitch));
-  roll = (abs(roll) % (2*PI))*(roll/abs(roll));
-  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
+  /* Take modulo with 2*PI, only when necessary */
+  if ( abs(yaw) > 2*PI ){
+    yaw = (abs(yaw) % (2*PI))*(yaw/abs(yaw));
   }
-}
+  if ( abs(pitch) > 2*PI){
+    pitch = (abs(pitch) % (2*PI))*(pitch/abs(pitch));
+  }
+  if ( abs(roll) > 2*PI ){
+    roll = (abs(roll) % (2*PI))*(roll/abs(roll));
+  }
+  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
 }
 
+void setNunchuckVariables(String[] m){
+  
+  acc_x = normalizeInput(int(m[1]), 14);
+  acc_y = normalizeInput(int(m[2]), 14);
+  acc_z = normalizeInput(int(m[3]), 14);
+  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
+
+  /* Take modulo with 2*PI, only when necessary */
+  if ( abs(yaw) > 2*PI ){
+    yaw = (abs(yaw) % (2*PI))*(yaw/abs(yaw));
+  }
+  if ( abs(pitch) > 2*PI){
+    pitch = (abs(pitch) % (2*PI))*(pitch/abs(pitch));
+  }
+  if ( abs(roll) > 2*PI ){
+    roll = (abs(roll) % (2*PI))*(roll/abs(roll));
+  }
+  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
+}
 
