@@ -38,11 +38,6 @@ size(800, 600, P3D);
   // Using the first available port (might be different on your computer)
   port = new Serial(this, Serial.list()[0], 9600); 
   port.bufferUntil(lf); 
-  /*for (int k=0;k<10;k++){
-    port.readString();
-    delay(1000);
-    println("Dump " + k);
-  } */
   body_x = width/3.;
   body_y = height/2.;
   axes_Ox = width*2./3.;
@@ -246,18 +241,6 @@ void setNunchuckVariables(String[] m){
   acc_x = normalizeInput(int(m[1]), 14);
   acc_y = normalizeInput(int(m[2]), 14);
   acc_z = normalizeInput(int(m[3]), 14);
-  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
-
-  /* Take modulo with 2*PI, only when necessary */
-  if ( abs(yaw) > 2*PI ){
-    yaw = (abs(yaw) % (2*PI))*(yaw/abs(yaw));
-  }
-  if ( abs(pitch) > 2*PI){
-    pitch = (abs(pitch) % (2*PI))*(pitch/abs(pitch));
-  }
-  if ( abs(roll) > 2*PI ){
-    roll = (abs(roll) % (2*PI))*(roll/abs(roll));
-  }
-  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
+  println( "Acceleration: " + acc_x + " - " + acc_y + " - " + acc_y);
 }
 
