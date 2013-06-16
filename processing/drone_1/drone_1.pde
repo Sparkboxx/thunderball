@@ -17,6 +17,9 @@ float axes_Oy;
 float yaw = 0.;
 float pitch = 0.;
 float roll = 0.;
+float acc_x = 0.;
+float acc_y = 0.;
+float acc_z = 0.;
 float angle_x = 1.0;
 float angle_y = 0.0;
 float angle_z = 0.0;
@@ -31,15 +34,10 @@ size(800, 600, P3D);
 
   // In case you want to see the list of available ports
   println(Serial.list());
-  
+
   // Using the first available port (might be different on your computer)
-  port = new Serial(this, Serial.list()[0], 9600); 
-  port.bufferUntil(lf); 
-  /*for (int k=0;k<10;k++){
-    port.readString();
-    delay(1000);
-    println("Dump " + k);
-  } */
+  port = new Serial(this, Serial.list()[0], 9600);
+  port.bufferUntil(lf);
   body_x = width/3.;
   body_y = height/2.;
   axes_Ox = width*2./3.;
@@ -58,23 +56,23 @@ void draw()
   float dtheta[] = {0.1, 0.2, 0.3, 0.4};
   int i;
   int data_frame = frameCount % ndata;
-  
-  /*  
+
+  /*
   if (mousePressed) {
    angle_x = -2*PI*(mouseY - body_y)/height;
    angle_y = 2*PI*(mouseX - body_x)/width;
-  } 
+  }
   else {
     angle_z = atan2(mouseY - body_y, mouseX - body_x);
   }
 
   yaw = angle_z;
   */
-  
+
   angle_x = pitch;
   angle_y = roll;
   angle_z = yaw;
-  
+
   pushMatrix();
   //angle += 0.05;
   translate(body_x, body_y);
@@ -86,13 +84,13 @@ void draw()
   for (i=0; i<4; i++) {
   theta[i] += dtheta[i];
   }
-  
+
   popMatrix();
   // data1[data_frame] = theta[1];
   data1[data_frame] = angle_x;
   data2[data_frame] = yaw;
   data3[data_frame] = angle_y;
-  
+
   for (i=0; i<ndata; i++) {
     int index = (data_frame + 1 + i) % ndata;
     stroke(#00AAAA);
@@ -109,7 +107,7 @@ void drawDrone(float yaw, float pitch, float roll)
 {
   int i;
   float prop_center_x, prop_center_y;
-  
+
   pushMatrix();
   translate(body_x, body_y);
   stroke(#AAAA00);
@@ -136,7 +134,7 @@ void drawDrone(float yaw, float pitch, float roll)
   popMatrix();
 }
 
-/* Given a value of "arm" in {0,1,2,3}, draw_arm() draws 
+/* Given a value of "arm" in {0,1,2,3}, draw_arm() draws
  * the armth arm of the drone.
  */
 void draw_arm(int arm){
@@ -182,12 +180,12 @@ void serialEvent(Serial port) {
   input_str = port.readString();
   // For debugging
   println( "Raw Input:" + input_str);
- 
-  setYawPitchRollFromString(input_str);
+
+  setVariablesFromString(input_str);
 }
 
 
-/* Normalizes an nbit-bit sized unsigned integer 
+/* Normalizes an nbit-bit sized unsigned integer
  * input to a float in [-1,1]
  */
 float normalizeInput(int val, int nbits) {
@@ -201,27 +199,48 @@ String[] match_string(String s){
   // return matchAll(s, "[^\d]([\d]*?)[^\d]");
 }
 
-void setYawPitchRollFromString(String console_line) {
-  // String s = "gyro:1234,5333,3333" // Match this with the console output line
-//  String console = "foofoofoo,123,123:123123123123,123";
+void setVariablesFromString(String input_line) {
 
-  if ( console_line != null ){
-    
-  m = match_string(console_line);
- 
-  if ( m != null && int(m[0]) == 0 && m.length == 5){
-  
+  m = match_string(input_line);
+
+  /* Checks for null match */
+  if ( m != null ){
+
+    /* Check if input comes from motion+ or nunchuck */
+    if ( int(m[0]) == 0 && m.length == 5 ){
+      setMotionPlusVariables(m);
+    }
+    else if ( int(m[0]) == 1 && m.length == 10 ){
+      setNunchuckVariables(m);
+    }
+  }
+}
+
+void setMotionPlusVariables(String[] m){
+
   yaw -= normalizeInput(int(m[1]), 14);
   pitch -= normalizeInput(int(m[2]), 14);
   roll -= normalizeInput(int(m[3]), 14);
   println( "Angles: " + yaw + " - " + pitch + " - " + roll);
 
-  yaw = (abs(yaw) % (2*PI))*(yaw/abs(yaw));
-  pitch = (abs(pitch) % (2*PI))*(pitch/abs(pitch));
-  roll = (abs(roll) % (2*PI))*(roll/abs(roll));
-  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
+  /* Take modulo with 2*PI, only when necessary */
+  if ( abs(yaw) > 2*PI ){
+    yaw = (abs(yaw) % (2*PI))*(yaw/abs(yaw));
   }
-}
+  if ( abs(pitch) > 2*PI){
+    pitch = (abs(pitch) % (2*PI))*(pitch/abs(pitch));
+  }
+  if ( abs(roll) > 2*PI ){
+    roll = (abs(roll) % (2*PI))*(roll/abs(roll));
+  }
+  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
 }
 
+void setNunchuckVariables(String[] m){
+
+  acc_x = normalizeInput(int(m[1]), 14);
+  acc_y = normalizeInput(int(m[2]), 14);
+  acc_z = normalizeInput(int(m[3]), 14);
+  println( "Acceleration: " + acc_x + " - " + acc_y + " - " + acc_y);
+}
 

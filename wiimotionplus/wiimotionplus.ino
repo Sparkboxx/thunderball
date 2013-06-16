@@ -1,7 +1,9 @@
 #include <Wire2.h>
 #include "wmp.h"
 
+#define NUNCHUCK_ATTACHED
 #define DEBUG_GYRO
+#define DEBUG_ACC
 
 WMP* wmp = new WMP();
 
@@ -27,6 +29,16 @@ void output_acc(){
   Serial.print(wmp->nunchuck->acc->get_y());
   Serial.print(" ");
   Serial.print(wmp->nunchuck->acc->get_z());
+  Serial.print(" ");
+  Serial.print(wmp->nunchuck->acc->get_g_unit());
+  Serial.print(" ");
+  Serial.print(wmp->nunchuck->get_butt_c().pressed);
+  Serial.print(" ");
+  Serial.print(wmp->nunchuck->get_butt_z().pressed);
+  Serial.print(" ");
+  Serial.print(wmp->nunchuck->get_analog().x);
+  Serial.print(" ");
+  Serial.print(wmp->nunchuck->get_analog().y);
   Serial.println(" ");
 }
 
