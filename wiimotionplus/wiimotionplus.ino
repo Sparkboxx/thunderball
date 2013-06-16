@@ -7,13 +7,13 @@ WMP* wmp = new WMP();
 
 #ifdef DEBUG_GYRO
 void output_gyro(){
-  Serial.print("gyro:");
+  Serial.print("0 ");
   Serial.print(wmp->gyro->get_yaw());
-  Serial.print(",");
+  Serial.print(" ");
   Serial.print(wmp->gyro->get_pitch());
-  Serial.print(",");
+  Serial.print(" ");
   Serial.print(wmp->gyro->get_roll());
-  Serial.println("");
+  Serial.println(" ");
 }
 
 #endif
@@ -21,12 +21,13 @@ void output_gyro(){
 #ifdef DEBUG_ACC
 
 void output_acc(){
-  Serial.print("acc:");
+  Serial.print("1 ");
   Serial.print(wmp->nunchuck->acc->get_x());
-  Serial.print(",");
+  Serial.print(" ");
   Serial.print(wmp->nunchuck->acc->get_y());
-  Serial.print(",");
+  Serial.print(" ");
   Serial.print(wmp->nunchuck->acc->get_z());
+  Serial.println(" ");
 }
 
 #endif
