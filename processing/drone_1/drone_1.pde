@@ -148,3 +148,87 @@ void draw_axes(){
   line(axes_Ox, height*0.3, width*0.95, height*0.3);
   line(axes_Ox, height*0.3, axes_Ox, height*0.05);
 }
+
+
+// Called whenever there is something available to read
+void serialEvent(Serial port) {
+  // Data from the Serial port is read in serialEvent() using the read() function and assigned to the global variable: val
+  input_str = port.readString();
+  // For debugging
+  println( "Raw Input:" + input_str);
+ 
+  setVariablesFromString(input_str);
+}
+
+
+/* Normalizes an nbit-bit sized unsigned integer 
+ * input to a float in [-1,1]
+ */
+float normalizeInput(int val, int nbits) {
+  float norm = float(val)/pow(2,nbits-1) - 1.0;
+  println(val + " - " + norm);
+  return norm;
+}
+
+String[] match_string(String s){
+  return s.split(" ");
+  // return matchAll(s, "[^\d]([\d]*?)[^\d]");
+}
+
+void setVariablesFromString(String input_line) {
+ 
+  m = match_string(input_line);
+  
+  /* Checks for null match */
+  if ( m != null ){
+    
+    /* Check if input comes from motion+ or nunchuck */
+    if ( int(m[0]) == 0 && m.length == 5 ){
+      setMotionPlusVariables(m);
+    }
+    else if ( int(m[0]) == 1 && m.length == 10 ){
+      setNunchuckVariables(m);
+    }
+  }
+}
+
+void setMotionPlusVariables(String[] m){
+  
+  yaw -= normalizeInput(int(m[1]), 14);
+  pitch -= normalizeInput(int(m[2]), 14);
+  roll -= normalizeInput(int(m[3]), 14);
+  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
+
+  /* Take modulo with 2*PI, only when necessary */
+  if ( abs(yaw) > 2*PI ){
+    yaw = (abs(yaw) % (2*PI))*(yaw/abs(yaw));
+  }
+  if ( abs(pitch) > 2*PI){
+    pitch = (abs(pitch) % (2*PI))*(pitch/abs(pitch));
+  }
+  if ( abs(roll) > 2*PI ){
+    roll = (abs(roll) % (2*PI))*(roll/abs(roll));
+  }
+  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
+}
+
+void setNunchuckVariables(String[] m){
+  
+  acc_x = normalizeInput(int(m[1]), 14);
+  acc_y = normalizeInput(int(m[2]), 14);
+  acc_z = normalizeInput(int(m[3]), 14);
+  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
+
+  /* Take modulo with 2*PI, only when necessary */
+  if ( abs(yaw) > 2*PI ){
+    yaw = (abs(yaw) % (2*PI))*(yaw/abs(yaw));
+  }
+  if ( abs(pitch) > 2*PI){
+    pitch = (abs(pitch) % (2*PI))*(pitch/abs(pitch));
+  }
+  if ( abs(roll) > 2*PI ){
+    roll = (abs(roll) % (2*PI))*(roll/abs(roll));
+  }
+  println( "Angles: " + yaw + " - " + pitch + " - " + roll);
+}
+

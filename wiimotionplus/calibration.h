@@ -7,6 +7,7 @@
 #include "WMPWireTransfer.h"
 #include "WMPGyroDataMapper.h"
 #include "WMPNunchuckDataMapper.h"
+#include "extensions.h"
 
 struct calib_node
 {

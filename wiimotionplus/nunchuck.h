@@ -20,6 +20,10 @@ class Nunchuck: public Extension {
     void set_acc_x(int);
     void set_acc_y(int);
     void set_acc_z(int);
+    
+    Button get_butt_c();
+    Button get_butt_z();
+    Stick get_analog();
 };
 
 #endif
