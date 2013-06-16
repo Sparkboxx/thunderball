@@ -1,3 +1,9 @@
+import processing.serial.*;
+
+Serial port;  // The serial port
+String[] m;
+String input_str;
+int lf = 10;    // Linefeed in ASCII
 float lprop = 60.;
 float dprop = 6;
 float arm_len=100.;
@@ -8,6 +14,12 @@ float body_x = 200;
 float body_y = 200;
 float axes_Ox;
 float axes_Oy;
+float yaw = 0.;
+float pitch = 0.;
+float roll = 0.;
+float acc_x = 0.;
+float acc_y = 0.;
+float acc_z = 0.;
 float angle_x = 1.0;
 float angle_y = 0.0;
 float angle_z = 0.0;
@@ -19,13 +31,25 @@ float[] data3 = new float[ndata];
 
 void setup(){
 size(800, 600, P3D);
-body_x = width/3.;
-body_y = height/2.;
-axes_Ox = width*2./3.;
-axes_Oy = height*3.;
-frameRate(30);
-smooth();
-stroke(#000000);
+
+  // In case you want to see the list of available ports
+  println(Serial.list());
+  
+  // Using the first available port (might be different on your computer)
+  port = new Serial(this, Serial.list()[0], 9600); 
+  port.bufferUntil(lf); 
+  /*for (int k=0;k<10;k++){
+    port.readString();
+    delay(1000);
+    println("Dump " + k);
+  } */
+  body_x = width/3.;
+  body_y = height/2.;
+  axes_Ox = width*2./3.;
+  axes_Oy = height*3.;
+  frameRate(30);
+  smooth();
+  stroke(#000000);
 }
 
 
@@ -34,13 +58,11 @@ void draw()
   background(#DDDDDD);
   stroke(0);
   draw_axes();
-  float yaw = 0.;
-  float pitch = 0.;
-  float roll = 0.;
   float dtheta[] = {0.1, 0.2, 0.3, 0.4};
   int i;
   int data_frame = frameCount % ndata;
-    
+  
+  /*  
   if (mousePressed) {
    angle_x = -2*PI*(mouseY - body_y)/height;
    angle_y = 2*PI*(mouseX - body_x)/width;
@@ -50,6 +72,12 @@ void draw()
   }
 
   yaw = angle_z;
+  */
+  
+  angle_x = pitch;
+  angle_y = roll;
+  angle_z = yaw;
+  
   pushMatrix();
   //angle += 0.05;
   translate(body_x, body_y);
@@ -63,7 +91,8 @@ void draw()
   }
   
   popMatrix();
-  data1[data_frame] = theta[1];
+  // data1[data_frame] = theta[1];
+  data1[data_frame] = angle_x;
   data2[data_frame] = yaw;
   data3[data_frame] = angle_y;
   
