@@ -41,7 +41,7 @@ class ESC {
     // processes the max/min value instead.
     void decrease(float);
 
-    // Decrease speed by a percentage of the current speed.
+    // change speed by a percentage of the current speed.
     // Expressed as a float -1..1
     // If a value is given outside of this range the function
     // processes the max/min value instead.
