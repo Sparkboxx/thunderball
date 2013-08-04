@@ -94,8 +94,8 @@ $(wildcard ~/Documents/Arduino/Libraries/*/*.c)
 # The .ino files get preprocessed and merged into this
 APP_SKETCH = applet/$(TARGET).cpp
 # Other .c/.cpp files in the project get compiled separatley
-APP_SRC_CXX = $(wildcard *.cpp)
-APP_SRC_C = $(wildcard *.c)
+APP_SRC_CXX = $(wildcard src/*.cpp)
+APP_SRC_C = $(wildcard src/*.c)
 
 MODULES = $(C_MODULES) $(CXX_MODULES) $(ARDUINO_LIB)
 SRC = $(C_MODULES)

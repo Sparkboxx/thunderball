@@ -22,6 +22,7 @@ class Accelerometer {
     int calibrate_z(int);
     void calibrate(int, int, int);
     void set_g_unit();
+    float get_g_unit();
 
     void set_x(int);
     void set_y(int);

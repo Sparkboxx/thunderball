@@ -2,6 +2,10 @@
 
 Nunchuck::Nunchuck(){
   acc = new Accelerometer();
+  c.pressed = false;
+  c.changed = false;
+  z.pressed = false;
+  z.changed = false;
 };
 
 unsigned char Nunchuck::activation_signal(){
@@ -33,3 +37,17 @@ void Nunchuck::set_acc_y(int value){
 void Nunchuck::set_acc_z(int value){
   acc->set_z(value);
 };
+
+/* Accessors */
+
+Button Nunchuck::get_butt_c(){
+  return c;
+}
+
+Button Nunchuck::get_butt_z(){
+  return z;
+}
+
+Stick Nunchuck::get_analog(){
+  return stick;
+}
