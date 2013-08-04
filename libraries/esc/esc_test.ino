@@ -40,11 +40,11 @@ void setup()
 {
   // Put the esc to Arduino pin #9
   myMotor.attach(9);
-  // Load and ESC and give it it's servo controller, min and max value
-  esc = ESC(&myMotor, 5, ESC_MIN_VALUE, ESC_MAX_VALUE);
+  int transistor_pin = 5;
+  // Setup a new ESC controller
+  esc = ESC(&myMotor, transistor_pin, ESC_MIN_VALUE, ESC_MAX_VALUE);
 
-  // On setup, just to be sure, calibrate the motor, calibrate also arms
-  // So once it's calibrated it's also armed.
+  // On setup, calibrate the motor (which also arms it)
   esc.calibrate();
 
   // Required for I/O from Serial monitor
@@ -63,25 +63,24 @@ void loop()
     char ch = Serial.read();
 
     /*
-    *  If ch isn't a newline
-    *  (linefeed) character,
-    *  we will add the character
-    *  to the incomingString
+    *  If ch isn't a newline (linefeed) character,
+    *  we will add the character to the incomingString
     */
     if (ch != 10){
-      // Add the character to
-      // the incomingString
+      // Add the character to the incomingString
       incomingString += ch;
     }
-    // received a newline (linefeed) character
-    // this means we are done making a string
-    else // We have receive a command
+    // received a newline (linefeed) character this means we
+    // are done making a string
+    else
     {
       // print the incoming command
       Serial.println("Command received: ");
       Serial.println(incomingString);
 
-      // Convert the string to an integer
+      // Try and convert the string to an integer
+      // if it doesn't work (return value 0) -> assume we received a command
+      // if it works -> set the speed
       int val = incomingString.toInt();
 
       if(val == 0){
@@ -92,8 +91,6 @@ void loop()
         Serial.print(diff);
         esc.set_speed(diff);
       }
-
-      // print the integer
 
       // Reset the value of the incomingString
       incomingString = "";
