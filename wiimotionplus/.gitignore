@@ -1,3 +1,6 @@
 *.*~
 *.o
 wmp/*.o
+.dep/
+.lib/
+*.hex
