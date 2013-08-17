@@ -1,0 +1,7 @@
+nunchuck.o: nunchuck.cpp nunchuck.h extensions.h accelerometer.h
+
+nunchuck.h:
+
+extensions.h:
+
+accelerometer.h:

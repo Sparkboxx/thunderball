@@ -10,8 +10,8 @@ void WMP::initialize(){
   TwoWire* wire = new TwoWire();
   gyro = new Gyro();
 
-  communicator = new WMPWireTransfer(wire);
-  mapper = new WMPDataMapper(gyro);
+  communicator = new WireTransfer(wire);
+  mapper = new DataMapper(gyro);
 };
 
 void WMP::attach_extension(Extension* pext){

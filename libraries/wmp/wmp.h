@@ -14,11 +14,11 @@
 #include "classic_controller.h"
 #include "extensions.h"
 
-#include "WMPWireTransfer.h"
+#include "wire_transfer.h"
 
-#include "WMPDataMapper.h"
-#include "WMPGyroDataMapper.h"
-#include "WMPNunchuckDataMapper.h"
+#include "data_mapper.h"
+#include "gyro_data_mapper.h"
+#include "nunchuck_data_mapper.h"
 
 /*
   The Wii MotionPlus (wm+ or WMP) uses i2c (Inter-Integrated Circuits) for all of its communications.
@@ -39,13 +39,13 @@
 
 class WMP {
   bool extension_connected;
-  WMPWireTransfer *communicator;
-  WMPDataMapper *mapper;
+  WireTransfer *communicator;
+  DataMapper *mapper;
 
   public:
     Extension* extension;
     Nunchuck* nunchuck;
-    WMP ();
+    WMP();
     void initialize();
     Gyro* gyro;
 

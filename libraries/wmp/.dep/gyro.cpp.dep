@@ -1,0 +1,3 @@
+gyro.o: gyro.cpp gyro.h
+
+gyro.h:

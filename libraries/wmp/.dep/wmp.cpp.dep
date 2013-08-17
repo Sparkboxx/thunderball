@@ -1,0 +1,44 @@
+wmp.o: wmp.cpp wmp.h gyro.h accelerometer.h nunchuck.h extensions.h \
+  classic_controller.h wire_transfer.h \
+  /Applications/Arduino.app/Contents/Resources/Java/libraries/Wire/utility/twi.h \
+  /Applications/Arduino.app/Contents/Resources/Java/libraries/Wire/Wire.h \
+  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Stream.h \
+  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Print.h \
+  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/WString.h \
+  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Printable.h \
+  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/new.h \
+  data_mapper.h nunchuck_data_mapper.h gyro_data_mapper.h
+
+wmp.h:
+
+gyro.h:
+
+accelerometer.h:
+
+nunchuck.h:
+
+extensions.h:
+
+classic_controller.h:
+
+wire_transfer.h:
+
+/Applications/Arduino.app/Contents/Resources/Java/libraries/Wire/utility/twi.h:
+
+/Applications/Arduino.app/Contents/Resources/Java/libraries/Wire/Wire.h:
+
+/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Stream.h:
+
+/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Print.h:
+
+/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/WString.h:
+
+/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Printable.h:
+
+/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/new.h:
+
+data_mapper.h:
+
+nunchuck_data_mapper.h:
+
+gyro_data_mapper.h:
