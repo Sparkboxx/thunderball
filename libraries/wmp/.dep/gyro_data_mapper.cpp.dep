@@ -1,5 +1,0 @@
-gyro_data_mapper.o: gyro_data_mapper.cpp gyro_data_mapper.h gyro.h
-
-gyro_data_mapper.h:
-
-gyro.h:

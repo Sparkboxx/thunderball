@@ -1,3 +1,0 @@
-extensions.o: extensions.cpp extensions.h
-
-extensions.h:

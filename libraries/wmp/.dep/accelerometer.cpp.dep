@@ -1,3 +1,0 @@
-accelerometer.o: accelerometer.cpp accelerometer.h
-
-accelerometer.h:

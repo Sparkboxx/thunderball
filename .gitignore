@@ -1,0 +1,5 @@
+*.dep
+.dep
+.lib
+*.hex
+*.o

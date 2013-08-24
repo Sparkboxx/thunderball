@@ -1,6 +1,0 @@
-classic_controller.o: classic_controller.cpp extensions.h \
-  classic_controller.h
-
-extensions.h:
-
-classic_controller.h:

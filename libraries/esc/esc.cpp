@@ -3,8 +3,6 @@
   Created by Wilco van Duinkerken, august 2013
   Released into the public domain.
 */
-#include <Arduino.h>
-#include <Servo.h>
 #include "esc.h"
 
 ESC::ESC(){
