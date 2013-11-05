@@ -17,28 +17,64 @@ OUT = gpio.OUT
 
 escList = []
 
+def power_up_all(eList):
+  for e in eList:
+    e.power_up()
+
+def power_down_all(eList):
+  for e in eList:
+    e.power_down()
+
+def attach_all(eList):
+  for e in eList:
+    e.attach()
+
+def arm_all(eList):
+  for e in eList:
+    e.arm()
+
+def disarm_all(eList):
+  for e in eList:
+    e.disarm()
+
+def arm_all(eList):
+  for e in eList:
+    e.arm()
+
+def calibrate_all(eList):
+  for e in eList:
+    e.calibrate()
+
+def get_speeds(eList):
+  speeds = []
+  for e in eList:
+    speeds.append(e._speed)
+  print repr(speeds)
 
 
-def pin_clash(lista, esc):
+# More: set_speeds(speeds): if speed.len() is 1: set common speed, else if speed.len() is list.len() set speeds individually. 
+
+
+def is_sane(lista, esc):
   """Sanity checks _signal_pin, _power_pin and name"""
   clashes = 0
   if esc._signal_pin not in PWMpins:
     print "Pin " + esc._signal_pin + " is not a valid PWM pin."
+    clashes+=1
+  if esc._power_pin in PWMpins:
+    print "Pin " + esc._power_pin + " should be used as a PWM pin."
     clashes+=1
   for e in lista:
     if e._signal_pin is esc._signal_pin:
       print "PWM pin " + esc._signal_pin + " is already taken by " + e._name
       clashes+=1
     if e._power_pin is esc._power_pin:
-      print "GPIO pin " + esc._power_pin + " is already taken by " + e._name
+      print "GPIO pin " + e._power_pin + " is already taken by " + e._name
       clashes+=1
     if e._name is esc._name:
       print "This name is already taken!"
       clashes+=1
-  if clashes:
-    return True
-  else:
-    return False
+  return not clashes
 
 
 
@@ -80,7 +116,7 @@ class ESC:
       self._duty_cycle_max = self.us_to_pc(max)
       self.reset_span()
       self._prog_mode = prog_mode
-      if pin_clash(escList, self):
+      if not is_sane(escList, self):
         self._signal_pin = None
         self._power_pin = None
         self._name = None
@@ -95,7 +131,7 @@ class ESC:
       """Setup pins and arm."""
       self.pin_setup(self._power_pin, OUT)
       self.arm()
-      print "Initialized ESC " + self._name + " using pin " + self._signal_pin + " to control signal and " + self._power_pin + "to control power."
+      print "Initialized ESC " + self._name + " using pin " + self._signal_pin + " to control signal and " + self._power_pin + " to control power."
       self._attached = True
 
 
