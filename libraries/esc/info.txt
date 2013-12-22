@@ -1,0 +1,17 @@
+The python module esc.py contains the class definition for an ESC like the ones we got from Hobbyking.
+
+The schematics for connecting the ESC to Arduino/BeagleBone are in ESCservo.fzz.
+
+Functionality:
+=-=-=-=-=-=-=
+The speed is controlled by sending the appropriate PWM signal to the signal (yellow) cable of the ESC.
+A typical ESC operates with duty cycle times within the range of 1-2 ms and accepts update frequencies in the range of ~ [30,150] Hz.
+This means that:
+
+   * The maximum throttle value is set by setting the duty cycle to 2000 μs or above
+   * The ESC switches off the motor when the duty cycle is set to 1000 μs or below
+   * The ESC will switch off if the update frequency is set below ~30 Hz
+   * The ESC will ignore any additional pulses if update frequency is set above ~150 Hz
+For the above reasons I choose (for now) to set the update frequency value at 100 Hz and the duty cycle min and max values to 900 and 2100 resp.
+
+This will change in the future if a reason occurs.
